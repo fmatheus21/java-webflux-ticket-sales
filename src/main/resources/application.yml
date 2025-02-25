@@ -1,6 +1,10 @@
 spring:
   application:
     name: ticket-sales
+  flyway:
+    url: jdbc:postgresql://localhost:5432/ticket_sales
+    user: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   r2dbc:
     url: r2dbc:postgresql://localhost:5432/ticket_sales
     username: ${DATABASE_USERNAME}
