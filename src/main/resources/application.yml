@@ -1,4 +1,8 @@
+server:
+  port: 9000
 spring:
+  webflux:
+    base-path: ${CONTEXT_PATH:/api/v1}
   application:
     name: ticket-sales
   flyway:
