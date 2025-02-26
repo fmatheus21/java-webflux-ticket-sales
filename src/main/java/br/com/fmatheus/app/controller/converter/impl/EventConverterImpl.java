@@ -28,4 +28,13 @@ public class EventConverterImpl implements EventConverter {
                 .eventDate(event.getEventDate())
                 .build();
     }
+
+    @Override
+    public Event converterToEntityForUpdate(Event event, EventRequest request) {
+        event.setType(request.getType());
+        event.setName(request.getName());
+        event.setDescription(request.getDescription());
+        event.setEventDate(request.getEventDate());
+        return event;
+    }
 }

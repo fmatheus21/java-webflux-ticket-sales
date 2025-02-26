@@ -5,4 +5,6 @@ import br.com.fmatheus.app.controller.dto.response.EventResponse;
 import br.com.fmatheus.app.model.entity.Event;
 
 public interface EventConverter extends MapperConverter<Event, EventRequest, EventResponse> {
+
+    Event converterToEntityForUpdate(Event event, EventRequest request);
 }

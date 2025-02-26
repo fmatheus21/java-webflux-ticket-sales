@@ -8,6 +8,6 @@ import org.springframework.data.convert.WritingConverter;
 public class EventTypeEnumWritingConverter implements Converter<EventTypeEnum, String> {
     @Override
     public String convert(EventTypeEnum source) {
-        return source.name();
+        return source.getValue();
     }
 }

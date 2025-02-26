@@ -4,6 +4,7 @@ package br.com.fmatheus.app.controller.facade;
 import br.com.fmatheus.app.controller.converter.EventConverter;
 import br.com.fmatheus.app.controller.dto.request.EventRequest;
 import br.com.fmatheus.app.controller.dto.response.EventResponse;
+import br.com.fmatheus.app.controller.enumerable.EventTypeEnum;
 import br.com.fmatheus.app.model.entity.Event;
 import br.com.fmatheus.app.model.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +38,23 @@ public class EventFacade {
         return result.map(this.eventConverter::converterToResponse);
     }
 
+    public Flux<EventResponse> findByType(EventTypeEnum type) {
+        var result = this.eventService.findByType(type);
+        return result.map(this.eventConverter::converterToResponse);
+    }
+
     public Mono<EventResponse> create(EventRequest request) {
         var converter = this.eventConverter.converterToEntity(request);
         var commit = this.eventService.save(converter);
         return commit.map(this.eventConverter::converterToResponse);
+    }
+
+    public Mono<EventResponse> update(EventRequest request, UUID id) {
+        var result = this.searchById(id).flatMap(map -> {
+            var converter = this.eventConverter.converterToEntityForUpdate(map, request);
+            return this.eventService.save(converter);
+        });
+        return result.map(this.eventConverter::converterToResponse);
     }
 
     public Mono<Void> delete(UUID id) {
@@ -51,5 +65,6 @@ public class EventFacade {
     private Mono<Event> searchById(UUID id) {
         return this.eventService.findById(id).switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
+
 
 }

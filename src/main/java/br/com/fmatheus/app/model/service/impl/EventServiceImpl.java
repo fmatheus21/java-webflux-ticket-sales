@@ -1,5 +1,6 @@
 package br.com.fmatheus.app.model.service.impl;
 
+import br.com.fmatheus.app.controller.enumerable.EventTypeEnum;
 import br.com.fmatheus.app.model.entity.Event;
 import br.com.fmatheus.app.model.repository.EventRepository;
 import br.com.fmatheus.app.model.service.EventService;
@@ -38,5 +39,10 @@ public class EventServiceImpl implements EventService {
     @Override
     public Mono<Void> deleteById(UUID id) {
         return this.repository.deleteById(id);
+    }
+
+    @Override
+    public Flux<Event> findByType(EventTypeEnum type) {
+        return this.repository.findByType(type);
     }
 }
