@@ -33,7 +33,7 @@ public class EventFacade {
     }
 
     public Mono<EventResponse> findById(UUID id) {
-        var result = this.findId(id);
+        var result = this.searchById(id);
         return result.map(this.eventConverter::converterToResponse);
     }
 
@@ -44,11 +44,11 @@ public class EventFacade {
     }
 
     public Mono<Void> delete(UUID id) {
-        this.eventService.findById(id);
+        this.searchById(id);
         return this.eventService.deleteById(id);
     }
 
-    private Mono<Event> findId(UUID id) {
+    private Mono<Event> searchById(UUID id) {
         return this.eventService.findById(id).switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
 
