@@ -41,4 +41,10 @@ public class EventResource {
     public Mono<EventResponse> create(@RequestBody EventRequest request) {
         return this.facade.create(request);
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/{id}")
+    public Mono<Void> delete(@PathVariable UUID id) {
+        return this.facade.delete(id);
+    }
 }

@@ -4,6 +4,7 @@ package br.com.fmatheus.app.controller.facade;
 import br.com.fmatheus.app.controller.converter.EventConverter;
 import br.com.fmatheus.app.controller.dto.request.EventRequest;
 import br.com.fmatheus.app.controller.dto.response.EventResponse;
+import br.com.fmatheus.app.model.entity.Event;
 import br.com.fmatheus.app.model.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ public class EventFacade {
     }
 
     public Mono<EventResponse> findById(UUID id) {
-        var result = this.eventService.findById(id).switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)));
+        var result = this.findId(id);
         return result.map(this.eventConverter::converterToResponse);
     }
 
@@ -40,6 +41,15 @@ public class EventFacade {
         var converter = this.eventConverter.converterToEntity(request);
         var commit = this.eventService.save(converter);
         return commit.map(this.eventConverter::converterToResponse);
+    }
+
+    public Mono<Void> delete(UUID id) {
+        this.eventService.findById(id);
+        return this.eventService.deleteById(id);
+    }
+
+    private Mono<Event> findId(UUID id) {
+        return this.eventService.findById(id).switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
 
 }

@@ -31,12 +31,12 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Mono<Event> findById(UUID uuid) {
-        return this.repository.findById(uuid);
+    public Mono<Event> findById(UUID id) {
+        return this.repository.findById(id);
     }
 
     @Override
-    public Mono<Void> deleteById(UUID uuid) {
-        return this.repository.deleteById(uuid);
+    public Mono<Void> deleteById(UUID id) {
+        return this.repository.deleteById(id);
     }
 }
