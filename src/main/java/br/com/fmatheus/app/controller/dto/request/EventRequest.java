@@ -13,5 +13,6 @@ import java.time.LocalDate;
 public class EventRequest {
     private EventTypeEnum type;
     private String name;
+    private String description;
     private LocalDate eventDate;
 }

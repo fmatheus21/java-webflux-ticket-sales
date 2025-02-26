@@ -15,5 +15,6 @@ public class EventResponse {
     private UUID id;
     private EventTypeEnum type;
     private String name;
+    private String description;
     private LocalDate eventDate;
 }

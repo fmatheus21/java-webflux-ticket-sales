@@ -2,6 +2,7 @@ package br.com.fmatheus.app.model.entity;
 
 import br.com.fmatheus.app.controller.enumerable.EventTypeEnum;
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -17,6 +18,7 @@ import java.util.UUID;
 @Table("event")
 public class Event {
 
+    @Id
     @Column("id")
     private UUID id;
 
@@ -25,6 +27,9 @@ public class Event {
 
     @Column("name")
     private String name;
+
+    @Column("description")
+    private String description;
 
     @Column("event_date")
     private LocalDate eventDate;

@@ -13,6 +13,7 @@ public class EventConverterImpl implements EventConverter {
         return Event.builder()
                 .type(request.getType())
                 .name(request.getName())
+                .description(request.getDescription())
                 .eventDate(request.getEventDate())
                 .build();
     }
@@ -23,6 +24,7 @@ public class EventConverterImpl implements EventConverter {
                 .id(event.getId())
                 .type(event.getType())
                 .name(event.getName())
+                .description(event.getDescription())
                 .eventDate(event.getEventDate())
                 .build();
     }
