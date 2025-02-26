@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.UUID;
 
 @Component
@@ -38,9 +39,10 @@ public class EventFacade {
         return result.map(this.eventConverter::converterToResponse);
     }
 
-    public Flux<EventResponse> findByType(EventTypeEnum type) {
-        var result = this.eventService.findByType(type);
-        return result.map(this.eventConverter::converterToResponse);
+    public Flux<EventResponse> findByType(String type) {
+        var typeEnum = EventTypeEnum.valueOf(type.toUpperCase());
+        var result = this.eventService.findByType(typeEnum);
+        return Flux.from(result.map(this.eventConverter::converterToResponse)).delayElements(Duration.ofSeconds(5));
     }
 
     public Mono<EventResponse> create(EventRequest request) {

@@ -2,7 +2,6 @@ package br.com.fmatheus.app.controller.resource;
 
 import br.com.fmatheus.app.controller.dto.request.EventRequest;
 import br.com.fmatheus.app.controller.dto.response.EventResponse;
-import br.com.fmatheus.app.controller.enumerable.EventTypeEnum;
 import br.com.fmatheus.app.controller.facade.EventFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +32,7 @@ public class EventResource {
     @Transactional(readOnly = true)
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/category/{type}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<EventResponse> findByType(@PathVariable EventTypeEnum type) {
+    public Flux<EventResponse> findByType(@PathVariable String type) {
         return this.facade.findByType(type);
     }
 
